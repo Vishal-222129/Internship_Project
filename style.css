@@ -1,0 +1,152 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    background-color: #161b22;
+    border-bottom: 1px solid #30363d;
+    flex-shrink: 0;
+}
+
+header h1 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #e6edf3;
+}
+
+#status-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+#status-badge.loading {
+    background-color: #d29922;
+    color: #1a1405;
+}
+
+#status-badge.ready {
+    background-color: #238636;
+    color: white;
+}
+
+/* Notebook Container Layout */
+.container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: #0d1117;
+    justify-content: flex-start; 
+}
+
+/* Individual Cell Styling */
+.cell {
+    display: flex;
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    flex-shrink: 0; 
+}
+
+.cell-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 8px; 
+    background-color: #21262d;
+    border-right: 1px solid #30363d;
+    width: 40px; 
+    flex-shrink: 0;
+}
+
+.run-btn {
+    background-color: transparent;
+    color: #2ea043;
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.1s, color 0.2s;
+}
+
+.run-btn:hover {
+    color: #3fb950;
+    transform: scale(1.2);
+}
+
+.run-btn:disabled {
+    color: #484f58;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.cell-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+/* CodeMirror height adjustments for individual cells */
+.CodeMirror {
+    height: auto; 
+    font-family: 'Consolas', 'Fira Code', 'Courier New', monospace;
+    font-size: 1rem; 
+    padding: 4px 0;  
+}
+
+/* Output block within the cell */
+.cell-output {
+    background-color: #010409;
+    color: #a5d6ff;
+    padding: 8px 12px; 
+    font-family: 'Consolas', 'Fira Code', 'Courier New', monospace;
+    font-size: 0.95rem; 
+    border-top: 1px solid #30363d;
+    white-space: pre-wrap;     
+    word-wrap: break-word;     
+    display: none; 
+    margin: 0;
+    text-align: left; /* Ensures standard text aligns left */
+}
+
+.cell-output.error {
+    color: #ff7b72;
+}
+
+.cell-output.show {
+    display: block;
+}
+
+/* ✨ MATPLOTLIB SPECIFIC OVERRIDES ✨ */
+
+/* 1. Force the injected Matplotlib container to align strictly to the left */
+.cell-output > div {
+    justify-content: flex-start !important; 
+    margin-left: 0 !important;
+}
+
+/* 2. Prevent the Matplotlib canvas from trapping the scroll wheel */
+.cell-output canvas {
+    pointer-events: none !important; 
+}
