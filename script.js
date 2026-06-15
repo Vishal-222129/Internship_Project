@@ -13,7 +13,21 @@ async function initEngine() {
         statusBadge.className = "ready";
         pyodideReady = true;
 
-        createCell();
+        // ✨ THE CHANGE: Pass your default code here
+        const defaultSnippet = `# Welcome to your Python Notebook!
+# Press Shift+Enter or click the Play button to run.
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+y = np.array([35, 25, 25, 15])
+mylabels = ["Apples", "Bananas", "Cherries", "Dates"]
+
+plt.pie(y, labels = mylabels)
+plt.legend(title = "Four Fruits:")
+plt.show() `;
+
+        createCell(defaultSnippet);
     } catch (err) {
         statusBadge.innerText = "Error Loading Engine";
         statusBadge.style.backgroundColor = "#ff7b72";
@@ -21,16 +35,18 @@ async function initEngine() {
 }
 
 // 2. Dynamic Cell Creation
-function createCell() {
+// ✨ THE CHANGE: Add 'initialCode' parameter (defaults to empty string)
+function createCell(initialCode = "") {
     const cellDiv = document.createElement('div');
     cellDiv.className = 'cell';
 
+    // ✨ THE CHANGE: Inject the initialCode into the textarea
     cellDiv.innerHTML = `
         <div class="cell-controls">
             <button class="run-btn" title="Run Cell (Shift+Enter)">▶</button>
         </div>
         <div class="cell-content">
-            <textarea class="code-input"></textarea>
+            <textarea class="code-input">${initialCode}</textarea>
             <pre class="cell-output"></pre>
         </div>
     `;
@@ -59,6 +75,11 @@ function createCell() {
     });
 
     editor.focus();
+    
+    // ✨ THE CHANGE: Move the cursor to the end of the initial code
+    if (initialCode !== "") {
+        editor.setCursor(editor.lineCount(), 0);
+    }
 }
 
 // 3. Execution Logic for a specific cell
