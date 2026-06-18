@@ -14,7 +14,7 @@ async function initEngine() {
         pyodideReady = true;
 
         // ✨ THE CHANGE: Pass your default code here
-        const defaultSnippet = `# Welcome to your Python Notebook!
+        const defaultSnippet = `# Welcome to My Python Notebook!
 # Press Shift+Enter or click the Play button to run.
 
 import matplotlib.pyplot as plt
